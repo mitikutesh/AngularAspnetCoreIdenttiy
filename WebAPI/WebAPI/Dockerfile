@@ -6,14 +6,14 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["webapi.csproj", "/"]
+COPY ["webapi/webapi/webapi.csproj", "webapi/webapi"]
 RUN dotnet restore "webapi/webapi.csproj"
 COPY . .
 WORKDIR "/src/WebAPI"
-RUN dotnet build "webapi.csproj" -c Release -o /app/build
+RUN dotnet build "webapi/webapi.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "webapi.csproj" -c Release -o /app/publish
+RUN dotnet publish "webapi/webapi.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
