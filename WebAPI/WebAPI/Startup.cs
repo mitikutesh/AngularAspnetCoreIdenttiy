@@ -29,7 +29,11 @@ namespace WebAPI
                 config.UseSqlite("Data Source=demo.db");
             });
 
-            services.AddIdentity<AppUser, IdentityRole>()
+            services.AddIdentity<AppUser, IdentityRole>(config => {
+                config.Password.RequireDigit = false;
+                config.Password.RequireNonAlphanumeric = false;
+                config.Password.RequireLowercase = false;
+            })
                .AddEntityFrameworkStores<AppDataContext>();
 
         }
